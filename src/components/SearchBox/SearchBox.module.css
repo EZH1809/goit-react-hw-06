@@ -1,5 +1,6 @@
 .searchBar{
     width: 280px;
+    padding: 12px;
 }
 .searchHint{
     margin-top: 24px;
