@@ -14,22 +14,19 @@ import {
   REGISTER,
 } from 'redux-persist';
 
+const contactsPersistConfig = {
+  key: 'contacts',
+  storage,
+  whitelist: ['items'],
+};
+
 const rootReducer = combineReducers({
-  contacts: contactsReducer,
+  contacts: persistReducer(contactsPersistConfig, contactsReducer),
   filters: filterReducer,
 });
 
-const persistConfig = {
-  key: 'contacts',
-  storage: storage,
-  whitelist: ['contacts'],
-};
-
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const store = configureStore({
-  reducer: persistedReducer,
-
+const store = configureStore({
+  reducer: rootReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -39,3 +36,5 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export { store };
